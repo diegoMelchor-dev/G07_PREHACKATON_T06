@@ -2,4 +2,6 @@ DB_HOST=tu-servicio.aivencloud.com
 DB_PORT=12345
 DB_NAME=defaultdb
 DB_USER=avnadmin
-DB_PASSWORD=tu_contraseña_real
+DB_PASSWORD=cambia_esto
+# Opcional: REQUIRED (por defecto, Aiven), PREFERRED o DISABLED
+# DB_SSL_MODE=REQUIRED
