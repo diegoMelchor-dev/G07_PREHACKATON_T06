@@ -1,6 +1,10 @@
 package vallegrande.edu.pe.cuyconectacrud.View;
 
 import vallegrande.edu.pe.cuyconectacrud.model.ConexionDB;
+import vallegrande.edu.pe.cuyconectacrud.model.Contacto;
+import vallegrande.edu.pe.cuyconectacrud.model.ContactoDAO;
+import vallegrande.edu.pe.cuyconectacrud.model.FiltroFecha;
+import vallegrande.edu.pe.cuyconectacrud.util.BusquedaDinamica;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,8 +31,19 @@ public class VentanaContactos extends JFrame {
     private JTable tabla;
     private JTextField txtBuscar;
 
+    private static final String TODOS_MOTIVOS = "Todos los motivos";
+
+    private final ContactoDAO contactoDAO = new ContactoDAO();
+    private final JComboBox<String> cmbMotivo =
+            new JComboBox<>(new String[] { TODOS_MOTIVOS });
+    private final JComboBox<FiltroFecha> cmbFecha =
+            new JComboBox<>(FiltroFecha.values());
+    private final JLabel lblResultados = new JLabel(" ");
+    private boolean actualizandoFiltros = false;
+
     private JButton btnBuscar;
     private JButton btnActualizar;
+    private JButton btnLimpiar;
     private JButton btnNuevo;
     private JButton btnEditar;
     private JButton btnEliminar;
@@ -84,23 +99,43 @@ public class VentanaContactos extends JFrame {
         txtBuscar.setFont(new Font("SansSerif", Font.PLAIN, 14));
         txtBuscar.setPreferredSize(new Dimension(230, 38));
         txtBuscar.setToolTipText(
-                "Buscar por ID, nombre, teléfono, correo, motivo o mensaje"
+                "Escribe para filtrar: ID, nombre, teléfono, correo, motivo o mensaje"
         );
 
         btnBuscar = crearBoton("Buscar");
         btnActualizar = crearBoton("Actualizar");
+        btnLimpiar = crearBoton("Limpiar filtros");
         btnNuevo = crearBoton("Nuevo contacto");
         btnEditar = crearBoton("Editar");
         btnEliminar = crearBoton("Eliminar");
 
-        JPanel busqueda = new JPanel(
+        cmbMotivo.setPreferredSize(new Dimension(190, 36));
+        cmbFecha.setPreferredSize(new Dimension(170, 36));
+        lblResultados.setFont(new Font("SansSerif", Font.BOLD, 12));
+        lblResultados.setForeground(new Color(95, 110, 100));
+
+        JPanel filaBusqueda = new JPanel(
                 new FlowLayout(FlowLayout.LEFT, 8, 0)
         );
+        filaBusqueda.setOpaque(false);
+        filaBusqueda.add(new JLabel("Buscar:"));
+        filaBusqueda.add(txtBuscar);
+        filaBusqueda.add(btnBuscar);
+        filaBusqueda.add(btnActualizar);
+
+        JPanel filaFiltros = new JPanel(
+                new FlowLayout(FlowLayout.LEFT, 8, 0)
+        );
+        filaFiltros.setOpaque(false);
+        filaFiltros.add(new JLabel("Filtrar por:"));
+        filaFiltros.add(cmbMotivo);
+        filaFiltros.add(cmbFecha);
+        filaFiltros.add(btnLimpiar);
+
+        JPanel busqueda = new JPanel(new GridLayout(0, 1, 0, 8));
         busqueda.setOpaque(false);
-        busqueda.add(new JLabel("Buscar:"));
-        busqueda.add(txtBuscar);
-        busqueda.add(btnBuscar);
-        busqueda.add(btnActualizar);
+        busqueda.add(filaBusqueda);
+        busqueda.add(filaFiltros);
 
         JPanel botones = new JPanel(
                 new FlowLayout(FlowLayout.RIGHT, 8, 0)
@@ -171,7 +206,12 @@ public class VentanaContactos extends JFrame {
                 new Font("SansSerif", Font.BOLD, 17)
         );
 
-        panelTabla.add(etiquetaTabla, BorderLayout.NORTH);
+        JPanel tituloTabla = new JPanel(new BorderLayout());
+        tituloTabla.setOpaque(false);
+        tituloTabla.add(etiquetaTabla, BorderLayout.WEST);
+        tituloTabla.add(lblResultados, BorderLayout.EAST);
+
+        panelTabla.add(tituloTabla, BorderLayout.NORTH);
         panelTabla.add(scroll, BorderLayout.CENTER);
 
         contenido.add(superior, BorderLayout.NORTH);
@@ -193,10 +233,29 @@ public class VentanaContactos extends JFrame {
                 e -> cargarContactos(txtBuscar.getText())
         );
 
+        // Filtros avanzados (ComboBox)
+        cmbMotivo.addActionListener(e -> {
+            if (!actualizandoFiltros) {
+                cargarContactos(txtBuscar.getText());
+            }
+        });
+        cmbFecha.addActionListener(e -> {
+            if (!actualizandoFiltros) {
+                cargarContactos(txtBuscar.getText());
+            }
+        });
+        btnLimpiar.addActionListener(e -> limpiarFiltros());
+
+        // Búsqueda dinámica: filtra mientras se escribe (KeyReleased)
+        new BusquedaDinamica(
+                txtBuscar, 300, () -> cargarContactos(txtBuscar.getText())
+        );
+
         btnNuevo.addActionListener(e -> abrirFormulario(null));
         btnEditar.addActionListener(e -> editarContacto());
         btnEliminar.addActionListener(e -> eliminarContacto());
 
+        cargarMotivos();
         cargarContactos("");
     }
 
@@ -222,9 +281,10 @@ public class VentanaContactos extends JFrame {
             cargaActual.cancel(true);
         }
 
-        final String criterio = "%"
-                + (busqueda == null ? "" : busqueda.trim())
-                + "%";
+        final String texto = busqueda == null ? "" : busqueda.trim();
+        final String motivo = motivoSeleccionado();
+        final FiltroFecha rangoFecha =
+                (FiltroFecha) cmbFecha.getSelectedItem();
 
         setBotonesCarga(false);
 
@@ -232,43 +292,25 @@ public class VentanaContactos extends JFrame {
 
             @Override
             protected List<Object[]> doInBackground() throws Exception {
-                List<Object[]> contactos = new ArrayList<>();
+                List<Object[]> filas = new ArrayList<>();
 
-                String sql =
-                        "SELECT id, nombre, telefono, correo, motivo, mensaje, fecha "
-                                + "FROM contactos "
-                                + "WHERE CAST(id AS CHAR) LIKE ? "
-                                + "OR nombre LIKE ? OR telefono LIKE ? OR correo LIKE ? "
-                                + "OR motivo LIKE ? OR mensaje LIKE ? "
-                                + "ORDER BY fecha DESC, id DESC";
-
-                try (Connection con = ConexionDB.conectar();
-                     PreparedStatement ps = con.prepareStatement(sql)) {
-
-                    for (int i = 1; i <= 6; i++) {
-                        ps.setString(i, criterio);
+                for (Contacto c : contactoDAO.filtrar(texto, motivo, rangoFecha)) {
+                    if (isCancelled()) {
+                        break;
                     }
 
-                    try (ResultSet rs = ps.executeQuery()) {
-                        while (rs.next()) {
-                            if (isCancelled()) {
-                                break;
-                            }
-
-                            contactos.add(new Object[] {
-                                    rs.getLong("id"),
-                                    rs.getString("nombre"),
-                                    rs.getString("telefono"),
-                                    rs.getString("correo"),
-                                    rs.getString("motivo"),
-                                    rs.getString("mensaje"),
-                                    rs.getTimestamp("fecha")
-                            });
-                        }
-                    }
+                    filas.add(new Object[] {
+                            (long) c.getId(),
+                            c.getNombre(),
+                            c.getTelefono(),
+                            c.getCorreo(),
+                            c.getMotivo(),
+                            c.getMensaje(),
+                            c.getFecha()
+                    });
                 }
 
-                return contactos;
+                return filas;
             }
 
             @Override
@@ -285,6 +327,12 @@ public class VentanaContactos extends JFrame {
                     for (Object[] contacto : contactos) {
                         modelo.addRow(contacto);
                     }
+
+                    lblResultados.setText(
+                            contactos.size()
+                                    + (contactos.size() == 1
+                                    ? " resultado" : " resultados")
+                    );
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                     mostrarError(
@@ -308,12 +356,81 @@ public class VentanaContactos extends JFrame {
         cargaActual.execute();
     }
 
+    /** Devuelve el motivo elegido en el ComboBox, o null si es "todos". */
+    private String motivoSeleccionado() {
+        Object item = cmbMotivo.getSelectedItem();
+        if (item == null || TODOS_MOTIVOS.equals(item)) {
+            return null;
+        }
+        return item.toString();
+    }
+
+    /** Llena el ComboBox de motivos con los valores reales de la BD. */
+    private void cargarMotivos() {
+        new SwingWorker<List<String>, Void>() {
+
+            @Override
+            protected List<String> doInBackground() throws Exception {
+                return contactoDAO.listarMotivos();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<String> motivos = get();
+                    String anterior = motivoSeleccionado();
+
+                    actualizandoFiltros = true;
+                    try {
+                        cmbMotivo.removeAllItems();
+                        cmbMotivo.addItem(TODOS_MOTIVOS);
+                        for (String m : motivos) {
+                            cmbMotivo.addItem(m);
+                        }
+
+                        boolean existe = anterior != null
+                                && motivos.contains(anterior);
+                        cmbMotivo.setSelectedItem(
+                                existe ? anterior : TODOS_MOTIVOS
+                        );
+                    } finally {
+                        actualizandoFiltros = false;
+                    }
+
+                    // El motivo filtrado ya no existe (p. ej. se eliminó).
+                    if (anterior != null && !motivos.contains(anterior)) {
+                        cargarContactos(txtBuscar.getText());
+                    }
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                } catch (ExecutionException ex) {
+                    // Si falla, el filtro queda solo con "Todos los motivos".
+                }
+            }
+        }.execute();
+    }
+
+    private void limpiarFiltros() {
+        actualizandoFiltros = true;
+        try {
+            txtBuscar.setText("");
+            cmbMotivo.setSelectedIndex(0);
+            cmbFecha.setSelectedIndex(0);
+        } finally {
+            actualizandoFiltros = false;
+        }
+        cargarContactos("");
+    }
+
     private void setBotonesCarga(boolean habilitados) {
         if (btnBuscar != null) {
             btnBuscar.setEnabled(habilitados);
         }
         if (btnActualizar != null) {
             btnActualizar.setEnabled(habilitados);
+        }
+        if (btnLimpiar != null) {
+            btnLimpiar.setEnabled(habilitados);
         }
     }
 
@@ -401,6 +518,7 @@ public class VentanaContactos extends JFrame {
                             : "Contacto actualizado correctamente."
             );
 
+            cargarMotivos();
             cargarContactos(txtBuscar.getText());
 
         } catch (SQLException ex) {
@@ -469,6 +587,7 @@ public class VentanaContactos extends JFrame {
                     this, "Contacto eliminado correctamente."
             );
 
+            cargarMotivos();
             cargarContactos(txtBuscar.getText());
 
         } catch (SQLException ex) {

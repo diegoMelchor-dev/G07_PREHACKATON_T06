@@ -42,7 +42,7 @@ public class ConexionDB {
         if (host == null || puerto == null || baseDatos == null
                 || usuario == null || password == null) {
             throw new SQLException(
-                    "Faltan datos de conexión. Copia config.properties.example a "
+                    "Faltan datos de conexión. Copia config.properties a "
                             + "config.properties y completa tus credenciales.");
         }
 
