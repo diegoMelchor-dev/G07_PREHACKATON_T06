@@ -1,0 +1,7 @@
+target/
+.idea/
+*.iml
+.env
+*.log
+reportes/*.pdf
+src/main/resources/db.properties

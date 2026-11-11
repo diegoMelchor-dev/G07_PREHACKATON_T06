@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vallegrande.edu.pe.g07_prehackaton_t06.controller.HelloController"
+            prefWidth="1100" prefHeight="720"
+            style="-fx-background-color: #f4f7f6;">
+
+    <top>
+        <VBox spacing="5" style="-fx-background-color: #063f35;">
+            <padding><Insets top="18" right="22" bottom="18" left="22"/></padding>
+            <Label text="SISTEMA DE GESTIÓN DE EVENTOS"
+                   style="-fx-text-fill: white; -fx-font-size: 23px; -fx-font-weight: bold;"/>
+            <Label text="Módulo de administración de eventos — T06"
+                   style="-fx-text-fill: #d8ebe5; -fx-font-size: 13px;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="14">
+            <padding><Insets top="18" right="22" bottom="18" left="22"/></padding>
+
+            <TitledPane text="Datos del evento" expanded="true" collapsible="false">
+                <content>
+                    <GridPane hgap="12" vgap="10">
+                        <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="105"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints minWidth="105"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtNombre" promptText="Nombre del evento"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Fecha:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <DatePicker fx:id="dpFecha" promptText="Seleccionar fecha"
+                                    maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Lugar:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtLugar" promptText="Lugar del evento"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Modalidad:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="cbModalidad" promptText="Seleccionar"
+                                  maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                        <Label text="Estado:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cbEstado" promptText="Seleccionar"
+                                  maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <TextArea fx:id="txtDescripcion" promptText="Descripción (opcional)"
+                                  prefRowCount="2" wrapText="true"
+                                  GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                    </GridPane>
+                </content>
+            </TitledPane>
+
+            <HBox spacing="9">
+                <Button fx:id="btnGuardar" text="Guardar"
+                        style="-fx-background-color: #087f5b; -fx-text-fill: white;"/>
+                <Button fx:id="btnActualizar" text="Actualizar"/>
+                <Button fx:id="btnEliminar" text="Eliminar"
+                        style="-fx-background-color: #b02a37; -fx-text-fill: white;"/>
+                <Button fx:id="btnLimpiar" text="Limpiar"/>
+                <Button fx:id="btnReporte" text="Generar PDF"
+                        style="-fx-background-color: #063f35; -fx-text-fill: white;"/>
+            </HBox>
+
+            <TitledPane text="Consulta de eventos" expanded="true" collapsible="false"
+                        VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox spacing="10">
+                        <HBox spacing="10">
+                            <TextField fx:id="txtBuscar"
+                                       promptText="Buscar por nombre o lugar"
+                                       HBox.hgrow="ALWAYS"/>
+                            <ComboBox fx:id="cbFiltroEstado" promptText="Filtrar por estado"
+                                      prefWidth="190"/>
+                        </HBox>
+                        <TableView fx:id="tablaEventos" prefHeight="300" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="55"/>
+                                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="220"/>
+                                <TableColumn fx:id="colFecha" text="Fecha" prefWidth="110"/>
+                                <TableColumn fx:id="colLugar" text="Lugar" prefWidth="190"/>
+                                <TableColumn fx:id="colModalidad" text="Modalidad" prefWidth="115"/>
+                                <TableColumn fx:id="colEstado" text="Estado" prefWidth="120"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </content>
+            </TitledPane>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label text="Gestión de Eventos | Proyecto T06"
+               style="-fx-text-fill: #52635e; -fx-font-size: 11px;">
+            <BorderPane.margin><Insets top="0" right="22" bottom="12" left="22"/></BorderPane.margin>
+        </Label>
+    </bottom>
+</BorderPane>
