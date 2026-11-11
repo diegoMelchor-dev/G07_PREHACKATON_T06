@@ -34,6 +34,8 @@ Este directorio contiene las capturas de pantalla que demuestran el desarrollo y
 | Archivo | Descripción |
 |---|---|
 | 06_reporte_eventos.png | Reporte general de eventos generado en PDF. |
+<img width="1240" height="1755" alt="Report_GesEven_page-0001" src="https://github.com/user-attachments/assets/3b2d3db0-7ef9-41fd-8246-60c1550c5669" />
+
 
 ## Observaciones
 
