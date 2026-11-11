@@ -51,7 +51,7 @@ La tabla `inscripciones` depende de `eventos` y `participantes`. Orden de ejecuc
 3. `sql/script_inscripciones.sql`
 4. *(opcional)* `sql/datos_prueba_inscripciones.sql`
 
-Credenciales: copia `config.properties.example` a `config.properties` y completa los datos.
+Credenciales: copia `config.properties` a `config.properties` y completa los datos.
 Para un MySQL local sin SSL:
 
 ```properties
