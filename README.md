@@ -59,36 +59,53 @@ Se realizó el empaquetado ejecutable del módulo (`CuyConecta.exe`) en el direc
 | Archivo | Captura de Pantalla |
 | :--- | :--- |
 | **TAREA1.webp** | ![](docs/evidencias/TAREA1.webp) |<img width="1135" height="728" alt="image" src="https://github.com/user-attachments/assets/ccc5e606-c49c-4449-9dfb-cadd22852b61" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA2.webp** | ![](docs/evidencias/TAREA2.webp) |<img width="1135" height="728" alt="image" src="https://github.com/user-attachments/assets/55ad9a1d-734f-4257-91bc-6a7db1c05a27" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA3.webp** | ![](docs/evidencias/TAREA3.webp) |<img width="567" height="393" alt="image" src="https://github.com/user-attachments/assets/e67b5f2b-af16-49e1-a408-bc411b217b32" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA4.webp** | ![](docs/evidencias/TAREA4.webp) |<img width="887" height="613" alt="image" src="https://github.com/user-attachments/assets/b3269065-60f3-45b7-aeb2-3c93a97655f8" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA5.webp** | ![](docs/evidencias/TAREA5.webp) |<img width="1101" height="765" alt="image" src="https://github.com/user-attachments/assets/ef5acbbb-e775-4d00-941b-a19b0441ec2c" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA6.webp** | ![](docs/evidencias/TAREA6.webp) |<img width="996" height="540" alt="image" src="https://github.com/user-attachments/assets/739c5523-a0e6-419c-94ff-749d4e521eb7" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA7.webp** | ![](docs/evidencias/TAREA7.webp) |<img width="624" height="466" alt="image" src="https://github.com/user-attachments/assets/8250d5b4-995c-45fd-939d-1878682a4cbd" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA8.webp** | ![](docs/evidencias/TAREA8.webp) |<img width="557" height="300" alt="image" src="https://github.com/user-attachments/assets/a9f7834c-072e-4f8c-a4d6-6ea09d0c391a" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA9.webp** | ![](docs/evidencias/TAREA9.webp) |<img width="801" height="394" alt="image" src="https://github.com/user-attachments/assets/1d780be3-4b99-47e7-b70f-7d15cca4fe10" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA10.webp** | ![](docs/evidencias/TAREA10.webp) |<img width="1068" height="439" alt="image" src="https://github.com/user-attachments/assets/b4cb0130-b5e6-404c-b07a-2937dcaf62c6" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA11.webp** | ![](docs/evidencias/TAREA11.webp) |<img width="1049" height="655" alt="image" src="https://github.com/user-attachments/assets/e76596d6-9b85-4c0f-85c5-4c252647851d" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA12.webp** | ![](docs/evidencias/TAREA12.webp) |<img width="1049" height="655" alt="image" src="https://github.com/user-attachments/assets/562ae241-2db2-4b57-8914-ab3004828eb1" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA13.webp** | ![](docs/evidencias/TAREA13.webp) |<img width="1041" height="345" alt="image" src="https://github.com/user-attachments/assets/b0849251-8747-4c45-bcb4-c72b4c23540c" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA14.webp** | ![](docs/evidencias/TAREA14.webp) |<img width="1128" height="516" alt="image" src="https://github.com/user-attachments/assets/e887f33e-51f5-4105-9f31-75a0b91fa6b3" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA15.webp** | ![](docs/evidencias/TAREA15.webp) |<img width="926" height="462" alt="image" src="https://github.com/user-attachments/assets/8e50202f-4536-451b-be68-a777febfa5b5" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA16.webp** | ![](docs/evidencias/TAREA16.webp) |<img width="1522" height="784" alt="image" src="https://github.com/user-attachments/assets/5fbf1379-5575-4e13-be8c-26162439e660" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
 | **TAREA17.webp** | ![](docs/evidencias/TAREA17.webp) |<img width="1456" height="816" alt="image" src="https://github.com/user-attachments/assets/d95e2825-63bb-4712-ae56-e468de960527" />
-
+| Archivo | Captura de Pantalla |
+| :--- | :--- |
