@@ -14,6 +14,8 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.12.1</junit.version>
+        <javafx.version>21.0.5</javafx.version>
+        <jasperreports.version>6.21.3</jasperreports.version>
     </properties>
 
     <dependencies>
@@ -22,6 +24,39 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.3.0</version>
+        </dependency>
+
+        <!-- JavaFX (módulo Participantes) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- JasperReports (reporte de participantes) -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+
+        <!-- Compilador ECJ requerido por JasperReports en runtime -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
+            <version>3.33.0</version>
         </dependency>
 
         <!-- JUnit 5 -->
@@ -52,13 +87,23 @@
                 </configuration>
             </plugin>
 
-            <!-- Ejecutar la app: ./mvnw compile exec:java -->
+            <!-- Ejecutar la app Swing: ./mvnw compile exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
                     <mainClass>vallegrande.edu.pe.cuyconectacrud.Main</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Ejecutar el módulo Participantes (JavaFX): ./mvnw javafx:run -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>vallegrande.edu.pe.cuyconectacrud.LauncherParticipantes</mainClass>
                 </configuration>
             </plugin>
 
