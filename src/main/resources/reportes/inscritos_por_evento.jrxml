@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="inscritos_por_evento"
+              pageWidth="842" pageHeight="595" orientation="Landscape"
+              columnWidth="802"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              whenNoDataType="AllSectionsNoDetail">
+
+    <!-- Campos: getters de la clase Inscripcion (model) -->
+    <field name="eventoNombre" class="java.lang.String"/>
+    <field name="eventoFechaTexto" class="java.lang.String"/>
+    <field name="eventoLugar" class="java.lang.String"/>
+    <field name="participanteNombre" class="java.lang.String"/>
+    <field name="participanteDni" class="java.lang.String"/>
+    <field name="participanteInstitucion" class="java.lang.String"/>
+    <field name="fechaInscripcionTexto" class="java.lang.String"/>
+    <field name="estado" class="java.lang.String"/>
+
+    <variable name="TotalEvento" class="java.lang.Integer"
+              resetType="Group" resetGroup="GrupoEvento" calculation="Count">
+        <variableExpression><![CDATA[$F{participanteDni}]]></variableExpression>
+    </variable>
+
+    <variable name="TotalGeneral" class="java.lang.Integer" calculation="Count">
+        <variableExpression><![CDATA[$F{participanteDni}]]></variableExpression>
+    </variable>
+
+    <!-- Un bloque por evento -->
+    <group name="GrupoEvento">
+        <groupExpression><![CDATA[$F{eventoNombre} + "|" + $F{eventoFechaTexto}]]></groupExpression>
+
+        <groupHeader>
+            <band height="56">
+                <textField>
+                    <reportElement mode="Opaque" backcolor="#3730A3" forecolor="#FFFFFF"
+                                   x="0" y="6" width="802" height="22"/>
+                    <box leftPadding="6"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="11" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["EVENTO: " + $F{eventoNombre} + "     |     Fecha: " + $F{eventoFechaTexto} + "     |     Lugar: " + $F{eventoLugar}]]></textFieldExpression>
+                </textField>
+
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="0" y="32" width="40" height="20"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[N°]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="40" y="32" width="240" height="20"/>
+                    <box leftPadding="4"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Participante]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="280" y="32" width="80" height="20"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[DNI]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="360" y="32" width="240" height="20"/>
+                    <box leftPadding="4"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Institución]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="600" y="32" width="110" height="20"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Fecha inscripción]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement mode="Opaque" backcolor="#E0E7FF" x="710" y="32" width="92" height="20"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Estado]]></text>
+                </staticText>
+            </band>
+        </groupHeader>
+
+        <groupFooter>
+            <band height="34">
+                <textField>
+                    <reportElement mode="Opaque" backcolor="#EEF2FF" x="0" y="4" width="802" height="22"/>
+                    <box rightPadding="8"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="SansSerif" size="10" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Total de inscritos en el evento: " + $V{TotalEvento}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupFooter>
+    </group>
+
+    <title>
+        <band height="58">
+            <staticText>
+                <reportElement x="0" y="4" width="560" height="30"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Reporte de Inscritos por Evento]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="34" width="560" height="18" forecolor="#64748B"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="10"/>
+                </textElement>
+                <text><![CDATA[Sistema de Gestión de Eventos y Conferencias · Módulo Inscripciones]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="602" y="34" width="200" height="18" forecolor="#64748B"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Generado: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="40" height="20"/>
+                <box><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{GrupoEvento_COUNT}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="40" y="0" width="240" height="20"/>
+                <box leftPadding="4"><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{participanteNombre}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="280" y="0" width="80" height="20"/>
+                <box><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{participanteDni}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="0" width="240" height="20"/>
+                <box leftPadding="4"><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{participanteInstitucion}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="600" y="0" width="110" height="20"/>
+                <box><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{fechaInscripcionTexto}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="710" y="0" width="92" height="20"/>
+                <box><bottomPen lineWidth="0.5" lineColor="#CBD5E1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="24">
+            <textField>
+                <reportElement x="602" y="4" width="200" height="16" forecolor="#64748B"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+    <summary>
+        <band height="44">
+            <textField>
+                <reportElement mode="Opaque" backcolor="#3730A3" forecolor="#FFFFFF"
+                               x="0" y="10" width="802" height="26"/>
+                <box rightPadding="8"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="11" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["TOTAL GENERAL DE INSCRIPCIONES: " + ($V{TotalGeneral} == null ? 0 : $V{TotalGeneral})]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+
+</jasperReport>

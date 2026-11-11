@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vallegrande.edu.pe.cuyconectacrud.controller.InscripcionController"
+            styleClass="raiz">
+
+    <!-- ============ CABECERA + BÚSQUEDA / FILTROS / REPORTES ============ -->
+    <top>
+        <VBox styleClass="cabecera" spacing="12">
+            <padding>
+                <Insets top="18" right="24" bottom="16" left="24"/>
+            </padding>
+
+            <Label styleClass="titulo" text="Gestión de Inscripciones"/>
+            <Label styleClass="subtitulo"
+                   text="Eventos y Conferencias · vincula a cada participante con su evento"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBuscar" HBox.hgrow="ALWAYS"
+                           promptText="Buscar por ID, evento, participante, DNI o institución…"/>
+                <ComboBox fx:id="cmbFiltroEstado" prefWidth="170"/>
+                <ComboBox fx:id="cmbFiltroEvento" prefWidth="260"/>
+                <Button fx:id="btnRefrescar" text="⟳  Refrescar"
+                        styleClass="btn-cabecera" onAction="#onRefrescar"/>
+                <Button fx:id="btnReporte" text="▤  Reporte"
+                        styleClass="btn-cabecera" onAction="#onReporte"/>
+                <Button fx:id="btnPdf" text="⇩  Exportar PDF"
+                        styleClass="btn-cabecera" onAction="#onPdf"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ============ FORMULARIO (Create / Update / Delete) ============ -->
+    <left>
+        <VBox styleClass="tarjeta" spacing="14" prefWidth="340" minWidth="320">
+            <BorderPane.margin>
+                <Insets top="16" right="8" bottom="8" left="24"/>
+            </BorderPane.margin>
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label styleClass="seccion" text="Datos de la inscripción"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="etiqueta" text="ID:"/>
+                <Label fx:id="lblId" styleClass="id-label" text="—"/>
+            </HBox>
+
+            <GridPane hgap="8" vgap="6">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label styleClass="etiqueta" text="Evento *" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="cmbEvento" promptText="Seleccione un evento"
+                          maxWidth="Infinity" GridPane.rowIndex="1"/>
+
+                <Label styleClass="etiqueta" text="Participante *" GridPane.rowIndex="2"/>
+                <ComboBox fx:id="cmbParticipante" promptText="Seleccione un participante"
+                          maxWidth="Infinity" GridPane.rowIndex="3"/>
+
+                <Label styleClass="etiqueta" text="Fecha de inscripción *" GridPane.rowIndex="4"/>
+                <DatePicker fx:id="dpFecha" maxWidth="Infinity" GridPane.rowIndex="5"/>
+
+                <Label styleClass="etiqueta" text="Estado *" GridPane.rowIndex="6"/>
+                <ComboBox fx:id="cmbEstado" promptText="Seleccione el estado"
+                          maxWidth="Infinity" GridPane.rowIndex="7"/>
+            </GridPane>
+
+            <Label styleClass="nota" text="* Campos obligatorios"/>
+
+            <VBox spacing="8">
+                <HBox spacing="8">
+                    <Button fx:id="btnNuevo" text="✚  Nuevo" styleClass="btn-secundario"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#onNuevo"/>
+                    <Button fx:id="btnGuardar" text="✔  Guardar" styleClass="btn-exito"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" onAction="#onGuardar"/>
+                </HBox>
+                <HBox spacing="8">
+                    <Button fx:id="btnActualizar" text="✎  Actualizar" styleClass="btn-aviso"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" disable="true"
+                            onAction="#onActualizar"/>
+                    <Button fx:id="btnEliminar" text="✖  Eliminar" styleClass="btn-peligro"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" disable="true"
+                            onAction="#onEliminar"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ============ TABLA (Read) ============ -->
+    <center>
+        <TableView fx:id="tvInscripciones">
+            <BorderPane.margin>
+                <Insets top="16" right="24" bottom="8" left="8"/>
+            </BorderPane.margin>
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60" maxWidth="80"/>
+                <TableColumn fx:id="colEvento" text="Evento" prefWidth="230"/>
+                <TableColumn fx:id="colParticipante" text="Participante" prefWidth="210"/>
+                <TableColumn fx:id="colDni" text="DNI" prefWidth="95"/>
+                <TableColumn fx:id="colFecha" text="Fecha inscripción" prefWidth="120"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+            </columns>
+            <placeholder>
+                <Label text="No hay inscripciones para mostrar"/>
+            </placeholder>
+        </TableView>
+    </center>
+
+    <!-- ============ BARRA DE ESTADO ============ -->
+    <bottom>
+        <HBox styleClass="barra-estado" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="8" right="24" bottom="8" left="24"/>
+            </padding>
+            <Label fx:id="lblEstado" text="Listo"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
