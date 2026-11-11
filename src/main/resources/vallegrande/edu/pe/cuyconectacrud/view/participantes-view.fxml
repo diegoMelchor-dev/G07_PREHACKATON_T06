@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Vista del módulo Gestión de Participantes (Integrante 2).
+     No contiene SQL: todas las consultas viven en ParticipanteDAO. -->
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vallegrande.edu.pe.cuyconectacrud.controller.ParticipanteController"
+            styleClass="raiz"
+            prefWidth="1050" prefHeight="650">
+
+    <top>
+        <VBox spacing="10" styleClass="barra-superior">
+            <padding>
+                <Insets top="12" right="14" bottom="12" left="14"/>
+            </padding>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Gestión de Participantes" styleClass="titulo"/>
+                <Label text="Sistema de Eventos y Conferencias"
+                       styleClass="subtitulo"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnReporte" text="Ver Reporte"
+                        onAction="#onReporte"
+                        styleClass="boton, boton-reporte"/>
+                <Button fx:id="btnPdf" text="Exportar PDF"
+                        onAction="#onPdf"
+                        styleClass="boton, boton-reporte"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Buscar:" styleClass="etiqueta"/>
+                <TextField fx:id="txtBuscar" prefWidth="300"
+                        promptText="DNI, nombres, apellidos, correo o institución"
+                        styleClass="campo"/>
+                <Label text="Institución:" styleClass="etiqueta"/>
+                <ComboBox fx:id="cmbInstitucion" prefWidth="230"
+                        promptText="Todas"/>
+                <Button fx:id="btnRefrescar" text="Refrescar"
+                        onAction="#onRefrescar"
+                        styleClass="boton, boton-secundario"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Filtro dinámico (Reto #2)"
+                       styleClass="nota"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox spacing="10" styleClass="panel-formulario" prefWidth="320">
+            <padding>
+                <Insets top="12" right="14" bottom="12" left="14"/>
+            </padding>
+            <Label text="Formulario de participante"
+                   styleClass="titulo-formulario"/>
+            <Label fx:id="lblId" text="Nuevo registro" styleClass="estado-id"/>
+            <GridPane hgap="8" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="70" halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+                <Label text="Nombres:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtNombres" promptText="Ej.: María Fernanda"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="0"/>
+                <Label text="Apellidos:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtApellidos" promptText="Ej.: Quispe Mamani"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                <Label text="DNI:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtDni" promptText="8 dígitos (ej.: 78451236)"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+                <Label text="Correo:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtCorreo" promptText="nombre@dominio.com"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+                <Label text="Teléfono:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="txtTelefono" promptText="9 dígitos, inicia con 9"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="4"/>
+                <Label text="Institución:" styleClass="etiqueta-form"
+                       GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                <TextField fx:id="txtInstitucion"
+                           promptText="Ej.: Instituto Superior Valle Grande"
+                           styleClass="campo" GridPane.columnIndex="1"
+                           GridPane.rowIndex="5"/>
+            </GridPane>
+            <Region VBox.vgrow="ALWAYS"/>
+            <HBox spacing="6">
+                <Button fx:id="btnNuevo" text="Nuevo" onAction="#onNuevo"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        styleClass="boton, boton-secundario"/>
+                <Button fx:id="btnGuardar" text="Guardar" onAction="#onGuardar"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        styleClass="boton, boton-guardar"/>
+            </HBox>
+            <HBox spacing="6">
+                <Button fx:id="btnActualizar" text="Actualizar"
+                        onAction="#onActualizar"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        styleClass="boton, boton-actualizar"/>
+                <Button fx:id="btnEliminar" text="Eliminar"
+                        onAction="#onEliminar"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        styleClass="boton, boton-eliminar"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <TableView fx:id="tvParticipantes" styleClass="tabla">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="45"/>
+                <TableColumn fx:id="colNombres" text="Nombres"
+                             prefWidth="110"/>
+                <TableColumn fx:id="colApellidos" text="Apellidos"
+                             prefWidth="130"/>
+                <TableColumn fx:id="colDni" text="DNI" prefWidth="75"/>
+                <TableColumn fx:id="colCorreo" text="Correo"
+                             prefWidth="180"/>
+                <TableColumn fx:id="colTelefono" text="Teléfono"
+                             prefWidth="90"/>
+                <TableColumn fx:id="colInstitucion" text="Institución"
+                             prefWidth="170"/>
+            </columns>
+            <placeholder>
+                <Label text="No hay participantes que coincidan con la búsqueda."/>
+            </placeholder>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="barra-estado">
+            <padding>
+                <Insets top="6" right="14" bottom="6" left="14"/>
+            </padding>
+            <Label fx:id="lblEstado" text="Listo." styleClass="estado"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Integrante 2 — Módulo Participantes"
+                   styleClass="estado"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

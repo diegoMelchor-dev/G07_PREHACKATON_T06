@@ -1,0 +1,213 @@
+/*
+ * Estilos del módulo Participantes (Integrante 2).
+ * Se aplican a participantes-view.fxml.
+ */
+
+.raiz {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-background-color: #f4f6fa;
+}
+
+/* ---------- Barra superior ---------- */
+
+.barra-superior {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dde1e9;
+    -fx-border-width: 0 0 1 0;
+}
+
+.titulo {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3b73;
+}
+
+.subtitulo {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5a6472;
+    -fx-padding: 6 0 0 4;
+}
+
+.etiqueta {
+    -fx-font-weight: bold;
+    -fx-text-fill: #33415c;
+}
+
+.nota {
+    -fx-font-size: 10px;
+    -fx-text-fill: #8a93a5;
+}
+
+/* ---------- Formulario ---------- */
+
+.panel-formulario {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dde1e9;
+    -fx-border-width: 0 1 0 0;
+}
+
+.titulo-formulario {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3b73;
+}
+
+.estado-id {
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-text-fill: #8a93a5;
+}
+
+.etiqueta-form {
+    -fx-font-weight: bold;
+    -fx-text-fill: #33415c;
+}
+
+.campo {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #c9d0dd;
+    -fx-border-width: 1;
+    -fx-padding: 4 6 4 6;
+}
+
+.campo:focused {
+    -fx-border-color: #1f3b73;
+}
+
+/* ---------- Botones ---------- */
+
+.boton {
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-padding: 6 14 6 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1f3b73;
+}
+
+.boton:hover {
+    -fx-background-color: #2c4f9e;
+}
+
+.boton:pressed {
+    -fx-background-color: #16305e;
+}
+
+.boton:disabled {
+    -fx-background-color: #aeb8ca;
+    -fx-text-fill: #e9edf4;
+}
+
+.boton-guardar {
+    -fx-background-color: #1e7d46;
+}
+
+.boton-guardar:hover {
+    -fx-background-color: #259a55;
+}
+
+.boton-actualizar {
+    -fx-background-color: #b07d1e;
+}
+
+.boton-actualizar:hover {
+    -fx-background-color: #d29726;
+}
+
+.boton-eliminar {
+    -fx-background-color: #b3312e;
+}
+
+.boton-eliminar:hover {
+    -fx-background-color: #cf4b48;
+}
+
+.boton-reporte {
+    -fx-background-color: #5b3a8e;
+}
+
+.boton-reporte:hover {
+    -fx-background-color: #7450ad;
+}
+
+.boton-secundario {
+    -fx-background-color: #eef1f7;
+    -fx-text-fill: #1f3b73;
+    -fx-border-color: #c9d0dd;
+    -fx-border-width: 1;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #dfe5f0;
+    -fx-text-fill: #16305e;
+}
+
+/* ---------- Tabla ---------- */
+
+.tabla {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dde1e9;
+    -fx-border-width: 1 0 0 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1f3b73;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #1f3b73;
+    -fx-border-color: #2c4f9e;
+    -fx-border-width: 0 1 0 1;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 6 4 6 8;
+}
+
+.table-row-cell {
+    -fx-cell-size: 34;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #c9d6f0;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #16305e;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f7f9fc;
+}
+
+/* ---------- Barra de estado ---------- */
+
+.barra-estado {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dde1e9;
+    -fx-border-width: 1 0 0 0;
+}
+
+.estado {
+    -fx-font-size: 11px;
+    -fx-text-fill: #5a6472;
+}
+
+/* ---------- ComboBox ---------- */
+
+.combo-box {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #c9d0dd;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 4 6 4 6;
+}
