@@ -9,7 +9,9 @@ Este directorio contiene las capturas de pantalla que demuestran el desarrollo y
 | 01_base_datos.png | Estructura de la base de datos MySQL y sus tablas. |
 <img width="246" height="189" alt="image" src="https://github.com/user-attachments/assets/bb98c190-7480-4538-9b53-d121d1165625" />
 
+|---|---|
 | 02_listar_eventos.png | Listado de eventos registrados. |
+
 <img width="511" height="64" alt="image" src="https://github.com/user-attachments/assets/a351c182-9e33-4650-a972-3f5613c26998" />
 
 | 03_registrar_evento.png | Registro de un nuevo evento. |
